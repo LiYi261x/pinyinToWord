@@ -2,7 +2,8 @@
 #include <string.h>
 #include "t9.h"
 
-
+void print(char *str,int num, int numth);
+void overallsoundprt(char *s, int length, int numth);
 char* run(char *str);
 char vovel[6] = {'A','O','E','I','U','V'};
 int q = 0;
@@ -13,7 +14,8 @@ char initial[20] = {'Q','W','R','T','Y','P','S','D','F','G','H','J','K','L','Z',
 char viwel[33][5] = {"A","O","E","I","U","V","AI","EI","UI","AO","OU","IU","IE","VE","ER",
                      "AN","EN","IN","UN","VN","ANG","ENG","ING","ONG","IAN","IAO","IANG","UAN",
                      "UAI","UANG","UA","IA","UO"}; 
-int numInitial[100] = { 0 };
+char overallSound[10][5] = {"A","O","E","AI","AO","OU","ER","AN","EN","ANG"};
+static int numInitial[100] = { 0 };
 struct t9PY_index t9PY_index2[];
 struct t9PY_index result[100];
 int main()
@@ -29,6 +31,9 @@ int main()
 
 	   //   printf(" ‰»Îµƒ∆¥“Ù « %s\n",str);
 	   run(str);
+	   /*printf("numInitial[0]  = %d", numInitial[0]);
+	   printf("numInitial[1]  = %d", numInitial[1]);
+	   printf("numInitial[2]  = %d", numInitial[2]);*/
 	   /*   for (i = 0; i < q+2; i++)
 		  {
 		  printf("%d", numInitial[i]);
@@ -41,68 +46,94 @@ int main()
 	   {
 		   if (numInitial[i + 1] == 999)
 			   break;
-		   switch (numInitial[i + 1] - numInitial[i])
-		   {
-		   case 1:
-			   for (j = 0; j < 7; j++)
-			   {
-				   if (strnicmp(&str[numInitial[i]], t9PY_index2[j].PY, 1) == 0)
-				   {
-					   printf("%s\n", t9PY_index2[j].PY_mb);
-				   }
-			   }
-			   break;
-		   case 2:
-			   for (j = 7; j < 85; j++)
-			   {
-				   if (strnicmp(&str[numInitial[i]], t9PY_index2[j].PY, 2) == 0)
-				   {
-					   printf("%s", t9PY_index2[j].PY_mb);
-				   }
-			   }
-			   break;
-		   case 3:
-			   for (j = 85; j < 252; j++)
-			   {
-				   if (strnicmp(&str[numInitial[i]], t9PY_index2[j].PY, 3) == 0)
-				   {
-					   printf("%s", t9PY_index2[j].PY_mb);
-				   }
+		   print(str, numInitial[i + 1] - numInitial[i], numInitial[i]);
 
-			   }
-			   break;
-		   case 4:
-			   for (j = 252; j < 373; j++)
-			   {
-				   if (strnicmp(&str[numInitial[i]], t9PY_index2[j].PY, 4) == 0)
-				   {
-					   printf("%s", t9PY_index2[j].PY_mb);
-				   }
-			   }
-			   break;
-		   case 5:
-			   for (j = 373; j < 397; j++)
-			   {
-				   if (strnicmp(&str[numInitial[i]], t9PY_index2[j].PY, 5) == 0)
-				   {
-					   printf("%s", t9PY_index2[j].PY_mb);
-				   }
-			   }
-			   break;
-		   default:
-			   break;
-		   }
 	   }
-	   printf("\n");
+	  // printf("\n");
    }
    return 0;
 
 }
+void print(char *str,int num,int numth)
+{
+	int j,flg=0;
+	switch (num)
+	{
+	case 1:
+printf("1\n");
+		for (j = 0; j < 7; j++)
+		{
+			if (strnicmp(&str[numth], t9PY_index2[j].PY, 1) == 0)
+			{
+				printf("%s\n", t9PY_index2[j].PY_mb);
+				flg = 1;
+			}
+		}
+		if (flg) break;
+		overallsoundprt(str, 1, numth);
+		break;
+	case 2:
+printf("2\n");
+		for (j = 7; j < 85; j++)
+		{
+			if (strnicmp(&str[numth], t9PY_index2[j].PY, 2) == 0)
+			{
+				printf("%s", t9PY_index2[j].PY_mb);
+				flg = 1;
+			}
+		}
+		if (flg) break;
+		overallsoundprt(str, 2, numth);
+		break;
+	case 3:
+printf("3\n");
+		for (j = 85; j < 252; j++)
+		{
+			if (strnicmp(&str[numth], t9PY_index2[j].PY, 3) == 0)
+			{
+				printf("%s", t9PY_index2[j].PY_mb);
+				flg = 1;
+			}
+		}
+		if (flg) break;
+		overallsoundprt(str, 3, numth);
+		break;
+	case 4:
+printf("4\n");
+		for (j = 252; j < 373; j++)
+		{
+			if (strnicmp(&str[numth], t9PY_index2[j].PY, 4) == 0)
+			{
+				printf("%s", t9PY_index2[j].PY_mb);
+				flg = 1;
+			}
+		}
+		if (flg) break;
+		overallsoundprt(str, 4, numth);
+		break;
+	case 5:
+printf("5\n");
+		for (j = 373; j < 397; j++)
+		{
+			if (strnicmp(&str[numth], t9PY_index2[j].PY, 5) == 0)
+			{
+				printf("%s", t9PY_index2[j].PY_mb);
+				flg = 1;
+			}
+		}
+		if (flg) break;
+		overallsoundprt(str, 5, numth);
+		break;
+	default:
+		break;
+	}
+}
 char* run(char *s)
 {
    int i,j;
-   int p;
-
+   int p,q;
+   q = 1;
+   numInitial[0] = 0;
    char str[100];
    for(i = 0; i<100; i++)
    {
@@ -132,15 +163,12 @@ char* run(char *s)
 
 					 }
 					 q++;
+
+					 break;
 				 }
-				/* else
-				 {
-					 numInitial[q] = i;
-					 q++;
-				 }*/
-
+	
 			 }
-
+			
          }
       }
 
@@ -151,4 +179,77 @@ char* run(char *s)
    return str;
 }
 
+void overallsoundprt(char *s,int length,int numth)
+{
+	int i,flg,num,temp;
+	flg = 1;
+	for (i = 373; i < 397; i++)
+	{
+		if (strnicmp(&s[numth], t9PY_index2[i].PY, 5) == 0)
+		{
+			printf("%s", t9PY_index2[i].PY_mb);
+			flg = 0;
+			num = 5;
+		}
+	}
+	if (flg)
+	{
+		for (i = 252; i < 373; i++)
+		{
+			if (strnicmp(&s[numth], t9PY_index2[i].PY, 4) == 0)
+			{
+				printf("%s", t9PY_index2[i].PY_mb);
+				flg = 0;
+				num = 4;
+			}
+		}
+	}
+	if (flg)
+	{
+		for (i = 85; i < 252; i++)
+		{
+			if (strnicmp(&s[numth], t9PY_index2[i].PY, 3) == 0)
+			{
+				printf("%s", t9PY_index2[i].PY_mb);
+				flg = 0;
+				num = 3;
+			}
+
+		}
+
+	}
+	if (flg)
+	{
+		for (i = 7; i < 85; i++)
+		{
+			if (strnicmp(&s[numth], t9PY_index2[i].PY, 2) == 0)
+			{
+				printf("%s", t9PY_index2[i].PY_mb);
+				flg = 0;
+				num = 2;
+			}
+		}
+	}
+	if (flg)
+	{
+		for (i = 0; i < 7; i++)
+		{
+			if (strnicmp(&s[numth], t9PY_index2[i].PY, 1) == 0)
+			{
+				printf("%s\n", t9PY_index2[i].PY_mb);
+				flg = 0;
+				num = 1;
+			}
+
+		}
+	}
+	for(i = length; i > num-1; i--)
+	{
+		
+		if (s[numth + i] == 'A' || s[numth + i] == 'E' || s[numth + i] == 'O')
+		{
+			print(s, length - i, numth + i);
+		}
+	}
+}
 
